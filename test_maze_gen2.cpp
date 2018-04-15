@@ -7,7 +7,7 @@ using namespace std;
 int main(){
 	srand(time(0));
 	//fixed row-col
-	int n=35;
+	int n=37;
 	
 	//creat map aray
 	int data_map[n][n][2];
@@ -18,10 +18,17 @@ int main(){
 		}
 	}
 	
+	for(int i=0;i<n;i++){
+		data_map[0][i][1]=0;
+		data_map[n-1][i][1]=0;
+		data_map[i][0][1]=0;
+		data_map[i][n-1][1]=0;
+	}
+	
 	//rand start delete
-	int ToRandXY=n/2;
-	int oi=rand()%ToRandXY*2+1;
-	int oj=rand()%ToRandXY*2+1;
+	int ToRandXY=n/2-1;
+	int oi=rand()%ToRandXY*2+2;
+	int oj=rand()%ToRandXY*2+2;
 	int irand=oi;
 	int jrand=oj;
 	
@@ -39,13 +46,13 @@ int main(){
 		int cpyjrand=jrand;
 		
 		int poss=rand()%4;
-		if(poss==0&&jrand>2){
+		if(poss==0&&jrand>3){
 			jrand-=2;
-		}else if(poss==1&&irand>2){
+		}else if(poss==1&&irand>3){
 			irand-=2;
-		}else if(poss==2&&jrand<n-3){
+		}else if(poss==2&&jrand<n-4){
 			jrand+=2;
-		}else if(poss==3&&irand<n-3){
+		}else if(poss==3&&irand<n-4){
 			irand+=2;
 		}
 		
@@ -74,8 +81,8 @@ int main(){
 	
 	//show map
 	//0==empty //1==wall //2==trap //3==item //4==playyer //5==monter
-	for(int i=0;i<n;i++){
-		for(int j=0;j<n;j++){
+	for(int i=1;i<n;i++){
+		for(int j=1;j<n;j++){
 			if(data_map[i][j][0]==1){ //show
 				if(data_map[i][j][1]==0||data_map[i][j][1]==2){
 					cout<<"  ";//empty,trap
