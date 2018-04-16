@@ -40,12 +40,6 @@ class Unit{
 		
 };
 
-/*class Trap{
-	public:
-		Trap();
-		
-};*/
-
 Equipment::Equipment(int a,int b,int c){
 	
 	hpmax = a;
@@ -106,7 +100,7 @@ int Unit::heal(string m){
 	
 }
 	
-/*void Trap::Trap(){
+void Trap(){
 	srand(time(0));
 	if(rand()%4==0){
 		
@@ -120,7 +114,7 @@ int Unit::heal(string m){
 	}
 	
 }
-*/
+
 
 int main(){
 	
@@ -133,7 +127,7 @@ int main(){
 	Equipment leather_armo(10,0,10);
 	Equipment Iron_armo(20,0,20);
 	
-	//Trap();
+	Trap();
 	
 	return 0;
 }
