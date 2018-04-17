@@ -1,66 +1,158 @@
 #include "iostream"
-#include "string"
 #include "fstream"
+#include "string"
 #include "vector"
 #include "Windows.h"
+#include "conio.h"
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+
+
+
 using namespace std;
 
-void pause(int N){
-	for(int i=0;i<N*10e5;i++);
+// --- This function for Delay Display --- 
+void delay(int N=1){
+	for(int i=0 ; i<N*10e6 ; i++);
 }
 
 
-
-
 int main(){
+	// --- Decare variable for read file ---
+	ifstream fin;
+	fin.open("DIEorOUT.txt");
+	string text;
+	vector<string> Logo;
 	
-	vector<string> Display_1,Display_2;
-	ifstream Display;
-	Display.open("Display_1.txt");
-	string textline;
-
-	while(getline(Display,textline)){
-		Display_1.push_back(textline);
-	}
-	Display.close();
+	// --- Decare variable for get key on keyborad ---
+	char key;
+	int ascii_key;
 	
-	Display.open("Display_2.txt");
-	while(getline(Display,textline)){
-		Display_2.push_back(textline);
-	}
-	Display.close();
+	// --- Read text from DIEorOUT.txt  & Input text to vector_Logo ---
+	while(getline(fin,text)) Logo.push_back(text);
+	fin.close();
 	
-
-	for(int i=0;i<Display_1.size();i++){
-		system("COLOR 4");
-		cout << "\t" << Display_1[i] << endl;
-		pause(50);
-	}
-	system("CLS");
-
-
-	for(int i=0 ; i<5 ; i++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),5+i);
-		for(int j=0;j<Display_2.size();j++ ) cout << "\t" << Display_2[j] << endl;
-		pause(50);
-		system("CLS");
-		pause(30);
-	}
-	
-
-	for(int i=0;i<Display_1.size();i++ ){
+	// --- Show Logo to start game --
+	for(int i=0 ; i<Logo.size() ; i++){
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-		for(int j=0;j<Display_1.size();j++) cout << "\t" << Display_1[j] << endl;
-		pause(20);
-		system("CLS");
-		pause(50);
+		cout << "\t" << Logo[i] << endl;
+		delay(10);
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+	}
+	system("CLS");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+	//cout << "\t\t\t\t\t" << "     CREDIT    " << endl << endl;
+
+	
+	int U=0;
+	
+	while(true){
+		switch(U){
+			case 0:
+				
+				for(int i=0 ; i<Logo.size() ; i++){
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+					cout << "\t" << Logo[i] << endl;
+				}
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+				cout << "\t\t\t\t\t" << ">      START      <" << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "    HOW TO PLAY    " << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "       CREDIT      " << endl << endl;
+				delay(5);
+				ascii_key = getch();
+				system("CLS");	
+				if(ascii_key == 80) U++;
+				break;
+				
+			case 1:
+				
+				for(int i=0 ; i<Logo.size() ; i++){
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+					cout << "\t" << Logo[i] << endl;
+				}
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "       START       " << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+				cout << "\t\t\t\t\t" << ">   HOW TO PLAY   <" << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "       CREDIT      " << endl << endl;
+				delay(5);
+				ascii_key = getch();
+				system("CLS");	
+				if(ascii_key == 80) U++;
+				else if(ascii_key == 72) U--;
+				break;
+				
+			case 2:
+				
+				for(int i=0 ; i<Logo.size() ; i++){
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+					cout << "\t" << Logo[i] << endl;
+				}
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "       START       " << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "    HOW TO PLAY    " << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+				cout << "\t\t\t\t\t" << ">      CREDIT     <" << endl << endl;
+				delay(5);
+				ascii_key = getch();
+				system("CLS");	
+				if(ascii_key == 72) U--;
+		}	 
 	}
 	
-	system("CLS");
-	for(int j=0;j<Display_1.size();j++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),j);
-		cout << "\t" << Display_1[j] << endl;
+	
+
+
+	
+	/*
+	while(true){
+		switch(ascii_key){
+			case 
+		}
+		if(u==0){
+			while(ascii_key != 80){
+				for(int i=0 ; i<Logo.size() ; i++){
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+					cout << "\t" << Logo[i] << endl;
+				}
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+				cout << "\t\t\t\t\t" << ">      START      <" << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "    HOW TO PLAY    " << endl << endl;
+				delay(5);
+				ascii_key = getch();
+				system("CLS");
+			}
+			if(ascii_key == 80) u++;
+		}else if(u==1){
+			while(ascii_key != 80 || ascii_key != 72){
+				for(int i=0 ; i<Logo.size() ; i++){
+					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+					cout << "\t" << Logo[i] << endl;
+				}
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+				cout << "\t\t\t\t\t" << "       START       " << endl << endl;
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
+				cout << "\t\t\t\t\t" << ">   HOW TO PLAY   <" << endl << endl;
+				delay(5);
+				ascii_key = getch();
+				system("CLS");		
+			}
+			if(ascii_key == 80) u++;
+			else if(ascii_key == 72) u--;
+		}
+		
 	}
+	*/
 
-
+	
+	
+	
+	system("CLS");
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
 }
