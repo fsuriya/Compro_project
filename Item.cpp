@@ -100,17 +100,22 @@ int Unit::heal(string m){
 	
 }
 	
-void Trap(){
+void Trap(Unit &player){
 	srand(time(0));
-	if(rand()%4==0){
-		
-		
-	}else if(rand()%4==1){
+	int i=rand()%11;
 	
-	}else if(rand()%4==2){
-	
-	}else if(rand()%4==3){
-	
+	switch (i){
+		case i<3 :
+			// -HP ==> 5-10%
+			break;
+		case i<6 :
+			// Stop moving ==> 2-3 s.
+			break;
+		case i<8 :
+			// Fight Monster
+			break;
+		case i<=10:
+			// -Def ==> 6-10%
 	}
 	
 }
