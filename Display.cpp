@@ -33,7 +33,7 @@ int main(){
 	while(getline(fin,text)) Logo.push_back(text);
 	fin.close();
 	
-	// --- Show Logo to start game --
+	// --- Show Logo to start game ---
 	for(int i=0 ; i<Logo.size() ; i++){
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
 		cout << "\t" << Logo[i] << endl;
@@ -45,9 +45,11 @@ int main(){
 	//cout << "\t\t\t\t\t" << "     CREDIT    " << endl << endl;
 
 	
+	
+	// --- Choose Menu do something ---
 	int U=0;
 	
-	while(true){
+	while(U != -1){
 		switch(U){
 			case 0:
 				
@@ -65,6 +67,7 @@ int main(){
 				ascii_key = getch();
 				system("CLS");	
 				if(ascii_key == 80) U++;
+				else if(ascii_key == 13) U=-1;
 				break;
 				
 			case 1:
@@ -84,6 +87,7 @@ int main(){
 				system("CLS");	
 				if(ascii_key == 80) U++;
 				else if(ascii_key == 72) U--;
+				else if(ascii_key == 13) U=-1;
 				break;
 				
 			case 2:
@@ -102,53 +106,12 @@ int main(){
 				ascii_key = getch();
 				system("CLS");	
 				if(ascii_key == 72) U--;
+				else if(ascii_key == 13) U=-1;
 		}	 
 	}
 	
 	
 
-
-	
-	/*
-	while(true){
-		switch(ascii_key){
-			case 
-		}
-		if(u==0){
-			while(ascii_key != 80){
-				for(int i=0 ; i<Logo.size() ; i++){
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-					cout << "\t" << Logo[i] << endl;
-				}
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-				cout << "\t\t\t\t\t" << ">      START      <" << endl << endl;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
-				cout << "\t\t\t\t\t" << "    HOW TO PLAY    " << endl << endl;
-				delay(5);
-				ascii_key = getch();
-				system("CLS");
-			}
-			if(ascii_key == 80) u++;
-		}else if(u==1){
-			while(ascii_key != 80 || ascii_key != 72){
-				for(int i=0 ; i<Logo.size() ; i++){
-					SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-					cout << "\t" << Logo[i] << endl;
-				}
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
-				cout << "\t\t\t\t\t" << "       START       " << endl << endl;
-				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-				cout << "\t\t\t\t\t" << ">   HOW TO PLAY   <" << endl << endl;
-				delay(5);
-				ascii_key = getch();
-				system("CLS");		
-			}
-			if(ascii_key == 80) u++;
-			else if(ascii_key == 72) u--;
-		}
-		
-	}
-	*/
 
 	
 	
