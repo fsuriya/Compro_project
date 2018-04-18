@@ -8,9 +8,24 @@
 #define KEY_UP 72
 #define KEY_DOWN 80
 
-
-
 using namespace std;
+
+// ---set windows ---//
+void SetWindow(int Width, int Height){
+    _COORD coord;
+    coord.X = Width;
+    coord.Y = Height;
+
+    _SMALL_RECT Rect;
+    Rect.Top = 0;
+    Rect.Left = 0;
+    Rect.Bottom = Height - 1;
+    Rect.Right = Width - 1;
+
+    HANDLE Handle = GetStdHandle(STD_OUTPUT_HANDLE);      // Get Handle
+    SetConsoleScreenBufferSize(Handle, coord);            // Set Buffer Size
+    SetConsoleWindowInfo(Handle, TRUE, &Rect);            // Set Window Size
+}
 
 // --- This function for Delay Display --- 
 void delay(int N=1){
@@ -29,7 +44,7 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 	}
 	
 	if(Stage != -1){
-		int B1=7,B2=7,B3=7;
+		int B1=7,B2=7,B3=7, B4=7;
 		if(Stage == 0){
 			B1 = C;
 		}
@@ -44,7 +59,13 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 			B1=7,B2=7,B3=C;
 		}
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),B3);
-		cout << "\t\t\t\t\t" << "       CREDIT      " << endl << endl;		
+		cout << "\t\t\t\t\t" << "       CREDIT      " << endl << endl;
+		//comment by f.sun
+		if(Stage == 3){
+			B1=B2=B3=7,B4=C;
+		}
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),B4);
+		cout << "\t\t\t\t\t" << "        EXIT       " << endl << endl;				
 	}		
 
 
@@ -54,6 +75,10 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 }
 
 int main(){
+	
+	//setwindow output
+	SetWindow(100,44);
+	
 	// --- Decare variable for read file ---
 	ifstream fin;
 	fin.open("DIEorOUT.txt");
@@ -88,7 +113,7 @@ int main(){
 		Show_Display(Logo,C,U);
 		if(GetAsyncKeyState(VK_DOWN)){
 			++U;
-			if(U==3) U=2; 
+			if(U==4) U=3; 
 		}
 		else if(GetAsyncKeyState(VK_UP)){ 
 			U--;
