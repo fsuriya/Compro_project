@@ -1,27 +1,29 @@
-#include<iostream>
+#include <iostream>
 #include <windows.h>
+#include <iomanip>
 using namespace std;
 
+int t=60;
 int main(){
 	
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole,0);
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "             \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "----------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "------------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	//hair
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "---";
@@ -39,7 +41,7 @@ int main(){
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	//hair
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "-";
@@ -63,7 +65,7 @@ int main(){
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	//hair
 	SetConsoleTextAttribute(hConsole,68);
 	cout << "-";
@@ -76,7 +78,7 @@ int main(){
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "     ";
+	cout << "  " << setw(t) << "     ";
 	//shirt blue
 	SetConsoleTextAttribute(hConsole,153);
 	cout << "-";
@@ -85,7 +87,7 @@ int main(){
 	cout << "------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	//shirt blue
 	SetConsoleTextAttribute(hConsole,153);
 	cout << "-";
@@ -97,7 +99,7 @@ int main(){
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	//arm
 	SetConsoleTextAttribute(hConsole,255);
 	cout << "--";
@@ -112,7 +114,7 @@ int main(){
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "     ";
+	cout << "  " << setw(t) << "     ";
 	SetConsoleTextAttribute(hConsole,102);
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
