@@ -4,9 +4,23 @@
 #include <conio.h>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include <vector>
 using namespace std;
-//#include "Monster.h"
+
+struct Pos{
+	int x;
+	int y;
+};
+bool operator==(const Pos &a, const Pos &b){
+	if(a.x==b.x && a.y==b.y) return true;
+	return false;
+}
+bool operator!=(const Pos &a, const Pos &b){
+	if(a.x==b.x && a.y==b.y) return false;
+	return true;
+}
+#include "Monster.h"
 #include "Player.h"
 //#include "Item.h"
 
@@ -116,11 +130,11 @@ int main(){
 				exit.y=rand()%(length_y-2)+1;
 			}while(data_map[start.y][start.x+1]==1 || data_map[exit.y][exit.x-1]==1);
 		}
-		data_map[start.y][start.x]=0;
-		data_map[exit.y][exit.x]=0;
+		data_map[start.y][start.x]=8;
+		data_map[exit.y][exit.x]=9;
 	}
-	
-	Player player(0, 0, 0, start);
+	Player player(0, 0, 0, start, exit);
+	Monster aa("555",data_map,length_x,length_y);
 	system("CLS");
 	hideCursor(0,0);
 	bool kk=1;
@@ -128,6 +142,7 @@ int main(){
 		if(GetAsyncKeyState(VK_ESCAPE)) kk=0;
 		gotoLine(0,0);
 		player.walk(data_map);
+		aa.findPlayer(data_map,player);
 		for(int i=0;i<length_y;i++){
 			for(int j=0;j<length_x;j++){
 				if(data_map[i][j]==0||data_map[i][j]==2){
@@ -137,9 +152,13 @@ int main(){
 				}else if(data_map[i][j]==3){
 					cout<<"@ ";//item
 				}else if(data_map[i][j]==4){
-					cout<<"* ";//playyer
+					cout<<"* ";//player
 				}else if(data_map[i][j]==5){
 					cout<<"& ";//monter
+				}else if(data_map[i][j]==8){
+					cout<<"A ";//start
+				}else if(data_map[i][j]==9){
+					cout<<"Z ";//exit
 				}
 			}cout<<endl;
 		}

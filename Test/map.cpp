@@ -4,21 +4,28 @@
 #include<vector>
 using namespace std;
 
+struct Pos{
+	int x;
+	int y;
+};
+
 int main(){
 	srand(time(0));
 	//fixed row-col
-	int n=35;
+	int length_x, length_y;
+	cout<<"Set Scale **Odd number (x, y): ";cin>>length_x>>length_y;
 	
 	//creat map aray
-	int data_map[n][n];
-	for(int i=0;i<n;i++){
-		for(int j=0;j<n;j++){
+	int **data_map=new int *[length_y];
+	for(int i=0;i<length_y;i++) data_map[i]=new int [length_x];
+	for(int i=0;i<length_y;i++){
+		for(int j=0;j<length_x;j++){
 			data_map[i][j]=1;
 		}
 	}
 
 	//rand start delete
-	int ToRandXY=n/2-1;
+	int ToRandXY=length_x/2-1;
 	int oi=rand()%ToRandXY*2+1;
 	int oj=rand()%ToRandXY*2+1;
 	int irand=oi;
@@ -42,9 +49,9 @@ int main(){
 			jrand-=2;
 		}else if(poss==1&&irand>2){
 			irand-=2;
-		}else if(poss==2&&jrand<n-3){
+		}else if(poss==2&&jrand<length_x-3){
 			jrand+=2;
-		}else if(poss==3&&irand<n-3){
+		}else if(poss==3&&irand<length_y-3){
 			irand+=2;
 		}
 		
@@ -55,7 +62,7 @@ int main(){
 			posY.push_back(jrand);
 			++count_map;
 		}else if(data_map[cpyirand][cpyjrand-2>0?cpyjrand-2:cpyjrand]==0&&data_map[cpyirand-2>0?cpyirand-2:cpyirand][cpyjrand]==0
-		&&data_map[cpyirand][cpyjrand+2<n-1?cpyjrand+2:cpyjrand]==0&&data_map[cpyirand+2<n-1?cpyirand+2:cpyirand][cpyjrand]==0){
+		&&data_map[cpyirand][cpyjrand+2<length_x-1?cpyjrand+2:cpyjrand]==0&&data_map[cpyirand+2<length_y-1?cpyirand+2:cpyirand][cpyjrand]==0){
 			posX.pop_back();
 			posY.pop_back();
 			--count_map;
@@ -70,11 +77,46 @@ int main(){
 			break_flag=false;
 		}
 	}
+	Pos start, exit;
+	{
+		int poss=rand()%4;
+		if(poss==0){
+			start.y=0;
+			exit.y=length_y-1;
+			do{
+				start.x=rand()%(length_x-2)+1;
+				exit.x=rand()%(length_x-2)+1;
+			}while(data_map[start.y+1][start.x]==1 || data_map[exit.y-1][exit.x]==1);
+		}else if(poss==1){
+			start.x=length_x-1;
+			exit.x=0;
+			do{
+				start.y=rand()%(length_y-2)+1;
+				exit.y=rand()%(length_y-2)+1;
+			}while(data_map[start.y][start.x-1]==1 || data_map[exit.y][exit.x+1]==1);
+		}else if(poss==2){
+			start.y=length_y-1;
+			exit.y=0;
+			do{
+				start.x=rand()%(length_x-2)+1;
+				exit.x=rand()%(length_x-2)+1;
+			}while(data_map[start.y-1][start.x]==1 || data_map[exit.y+1][exit.x]==1);
+		}else{
+			start.x=0;
+			exit.x=length_x-1;
+			do{
+				start.y=rand()%(length_y-2)+1;
+				exit.y=rand()%(length_y-2)+1;
+			}while(data_map[start.y][start.x+1]==1 || data_map[exit.y][exit.x-1]==1);
+		}
+		data_map[start.y][start.x]=0;
+		data_map[exit.y][exit.x]=0;
+	}
 	
 	//show map
 	//0==empty //1==wall //2==trap //3==item //4==playyer //5==monter
-	for(int i=0;i<n;i++){
-		for(int j=0;j<n;j++){
+	for(int i=0;i<length_y;i++){
+		for(int j=0;j<length_x;j++){
 			if(data_map[i][j]==0||data_map[i][j]==2){
 				cout<<"  ";//empty,trap
 			}else if(data_map[i][j]==1){
@@ -88,6 +130,8 @@ int main(){
 			}
 		}cout<<endl;
 	}
+	for(int i=0;i<length_y;i++) delete [] data_map[i];
+	delete [] data_map;
 	
 	return 0;
 }
