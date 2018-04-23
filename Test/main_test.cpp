@@ -1,40 +1,35 @@
 #include<iostream>
-#include<Windows.h>
+#include <windows.h>
 #include <string>
 #include <conio.h>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-#include "Player.h"
-//#include "Monster.h"
-//#include "Item.h"
 using namespace std;
+#include "Monster.h"
+#include "Player.h"
+//#include "Item.h"
+
 
 int main(){
 	srand(time(0));
 	//fixed row-col
-	int n=37;
+	int length_x, length_y;
+	cout<<"Scale (x, y): ";cin>>length_x>>length_y;
 	
 	//creat map aray
-	int data_map[n][37][2];
-	for(int i=0;i<n;i++){
-		for(int j=0;j<n;j++){
-			data_map[i][j][0]=1;
-			data_map[i][j][1]=1;
+	int **data_map=new int *[length_y];
+	for(int i=0;i<length_y;i++) data_map[i]=new int [length_x];
+	for(int i=0;i<length_y;i++){
+		for(int j=0;j<length_x;j++){
+			data_map[i][j]=1;
 		}
 	}
-	
-	for(int i=0;i<n;i++){
-		data_map[0][i][1]=0;
-		data_map[n-1][i][1]=0;
-		data_map[i][0][1]=0;
-		data_map[i][n-1][1]=0;
-	}
-	
+
 	//rand start delete
-	int ToRandXY=n/2-1;
-	int oi=rand()%ToRandXY*2+2;
-	int oj=rand()%ToRandXY*2+2;
+	int ToRandXY=length_x/2-1;
+	int oi=rand()%ToRandXY*2+1;
+	int oj=rand()%ToRandXY*2+1;
 	int irand=oi;
 	int jrand=oj;
 	
@@ -43,7 +38,7 @@ int main(){
 	vector<int> posY;
 	int count_map=0;
 	
-	data_map[irand][jrand][1]=0;
+	data_map[irand][jrand]=0;
 	posX.push_back(irand);
 	posY.push_back(jrand);
 	//cout<<irand<<" : "<<jrand<<endl;
@@ -52,23 +47,24 @@ int main(){
 		int cpyjrand=jrand;
 		
 		int poss=rand()%4;
-		if(poss==0&&jrand>3){
+		if(poss==0&&jrand>2){
 			jrand-=2;
-		}else if(poss==1&&irand>3){
+		}else if(poss==1&&irand>2){
 			irand-=2;
-		}else if(poss==2&&jrand<n-4){
+		}else if(poss==2&&jrand<length_x-3){
 			jrand+=2;
-		}else if(poss==3&&irand<n-4){
+		}else if(poss==3&&irand<length_y-3){
 			irand+=2;
 		}
 		
-		if(data_map[irand][jrand][1]!=0){
-			data_map[irand][jrand][1]=0;
-			data_map[(irand+cpyirand)/2][(jrand+cpyjrand)/2][1]=0;
+		if(data_map[irand][jrand]!=0){
+			data_map[irand][jrand]=0;
+			data_map[(irand+cpyirand)/2][(jrand+cpyjrand)/2]=0;
 			posX.push_back(irand);
 			posY.push_back(jrand);
 			++count_map;
-		}else if(data_map[cpyirand][cpyjrand-2>=0?cpyjrand-2:cpyjrand][1]==0&&data_map[cpyirand-2>=0?cpyirand-2:cpyirand][cpyjrand][1]==0&&data_map[cpyirand][cpyjrand+2<=n-1?cpyjrand+2:cpyjrand][1]==0&&data_map[cpyirand+2<=n-1?cpyirand+2:cpyirand][cpyjrand][1]==0){
+		}else if(data_map[cpyirand][cpyjrand-2>0?cpyjrand-2:cpyjrand]==0&&data_map[cpyirand-2>0?cpyirand-2:cpyirand][cpyjrand]==0
+		&&data_map[cpyirand][cpyjrand+2<length_x-1?cpyjrand+2:cpyjrand]==0&&data_map[cpyirand+2<length_y-1?cpyirand+2:cpyirand][cpyjrand]==0){
 			posX.pop_back();
 			posY.pop_back();
 			--count_map;
@@ -78,40 +74,35 @@ int main(){
 			irand=cpyirand;
 			jrand=cpyjrand;
 		}
-		
 		//cout<<irand<<" : "<<jrand<<endl;
 		if(oi==irand&&oj==jrand&&count_map==0){
 			break_flag=false;
 		}
 	}
-	Stat test={100,50,50,100};
-//	cout<<"test Hp"<<test.hp;
-	Player player(test,jrand,irand);
+	Player player(0, 0, 0, jrand, irand);
 	
 	while(1){
+		system("CLS");
 		player.walk(data_map);
-		for(int i=1;i<n;i++){
-			for(int j=1;j<n;j++){
-				if(data_map[i][j][0]==1){ //show
-					if(data_map[i][j][1]==0||data_map[i][j][1]==2){
-						cout<<"  ";//empty,trap
-					}if(data_map[i][j][1]==1){
-						cout<<"00";//wall
-					}if(data_map[i][j][1]==3){
-						cout<<"@ ";//item
-					}if(data_map[i][j][1]==4){
-						cout<<"* ";//playyer
-					}if(data_map[i][j][1]==5){
-						cout<<"& ";//monter
-					}
-				}if(data_map[i][j][0]==0){ //unshow
-					cout<<" ";
+		for(int i=0;i<length_y;i++){
+			for(int j=0;j<length_x;j++){
+				if(data_map[i][j]==0||data_map[i][j]==2){
+					cout<<"  ";//empty,trap
+				}else if(data_map[i][j]==1){
+					cout<<"00";//wall
+				}else if(data_map[i][j]==3){
+					cout<<"@ ";//item
+				}else if(data_map[i][j]==4){
+					cout<<"* ";//playyer
+				}else if(data_map[i][j]==5){
+					cout<<"& ";//monter
 				}
 			}cout<<endl;
 		}
 	}
 	
-	
+	for(int i=0;i<length_y;i++) delete [] data_map[i];
+	delete [] data_map;
 	
 	return 0;
 }

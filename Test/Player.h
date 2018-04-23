@@ -1,42 +1,61 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
-#include "Monster.h"
-//#include "Item.h"
+
 using namespace std;
 
-struct Stat{
-	int hpmax;
-	int atk;
-	int def;
-	int hp;
-};
-struct Posi{
+class Equipment;
+class Item;
+class Trap;
+
+struct Pos{
 	int x;
 	int y;
 };
 
 class Player{
 	string name;
-	Stat stat;
-	Posi posi;
-//	Equipment *equip;
-//	Item *item[];
+	int hpmax;
+	int atk;
+	int def;
+	int hp;
+	Pos pos;
+	Equipment *equip;
+	Item *item[];
 	public:
-		Player(Stat &,int ,int);
-//		void wear(Equipment *);
-//		void get(Item *);
-//		void useItem(int);
-		void walk(int [][37][2]);
-//		void beTrapped(Trap *)
+		Player(int, int, int, int, int);
+		void wear(Equipment *);
+		void get(Item *);
+		void useItem(int);
+		void walk(int **);
+		void beTrapped();
 };
-
-Player::Player(Stat &select,int xx,int yy){
-	stat=select;
-	posi.x=xx;
-	posi.y=yy;
+Player::Player(int hhp, int aatk, int ddef, int xx, int yy){
+	hpmax=hhp;
+	atk=aatk;
+	def=ddef;
+	hp=hpmax;
+	pos.x=xx;
+	pos.y=yy;
 }
-/*void Player::wear(Equipment *select){
+
+class Equipment{
+		int hpmax;
+		int atk;
+		int def;
+	public:	
+		Equipment(int,int,int);
+		friend void Player::wear(Equipment *);
+};
+Equipment::Equipment(int a,int b,int c){
+	hpmax = a;
+	atk = b;
+	def = c;
+	
+}
+	
+
+void Player::wear(Equipment *select){
 	if(equip!=0){
 		hpmax-=equip->hpmax;
 		atk-=equip->atk;
@@ -46,30 +65,45 @@ Player::Player(Stat &select,int xx,int yy){
 	hpmax+=equip->hpmax;
 	atk+=equip->atk;
 	def+=equip->def;
-}*/
-/*void Player::get(Item *obj){
+}
+void Player::get(Item *obj){
 	
 }
-void Player::useItem(int num){
-	
-}
-void Player::beTrapped(Trap *trap){
-	
-}*/
-void Player::walk(int map[][37][2]){
-	char des=getch();
-	des=toupper(des);
-	map[posi.y][posi.x][1]=0;
-	if(des=='W'&&map[posi.y-1][posi.x][1]!=1){
-		posi.y--;
-	}else if(des=='S'&&map[posi.y+1][posi.x][1]!=1){
-		posi.y++;
-	}else if(des=='A'&&map[posi.y][posi.x-1][1]!=1){
-		posi.x--;
-	}else if(des=='D'&&map[posi.y][posi.x+1][1]!=1){
-		posi.x++;
+/*void Player::useItem(int num){
+	int temp = hp;
+	if(m == "Bread"){
+		hp += 20;	
+	}else if(m == "Red_Potion"){
+		hp += 40;
 	}
-	map[posi.y][posi.x][1]=4;
+	if(hp > hpmax)  hp = hpmax;
+	return hp-temp;	
+}*/
+void Player::beTrapped(){
+	srand(time(0));
+	const int i=rand()%11;
+	if(i<3){
+		hp-=hpmax*(rand()%6+5)/100;
+	}else if(i<6){
+		for(int i=0;i<1e7;i++);
+	}else if(i<8){
+		
+	}else{
+		def-=def*(rand()%5+5)*100;
+	}	
+}
+void Player::walk(int **map){
+	map[pos.y][pos.x]=0;
+	if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
+		pos.y--;
+	}else if(GetAsyncKeyState(0x53) && map[pos.y-1][pos.x]!=1){
+		pos.y++;
+	}else if(GetAsyncKeyState(0x41) && map[pos.y][pos.x-1]!=1){
+		pos.x--;
+	}else if(GetAsyncKeyState(0x44) && map[pos.y][pos.x+1]!=1){
+		pos.x++;
+	}
+	map[pos.y][pos.x]=4;
 /*	if(map[y][x]==2) get()
 	else if(map[y][x]==3) beTrapped();*/
 }
