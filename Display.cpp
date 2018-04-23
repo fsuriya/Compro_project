@@ -3,7 +3,7 @@
 #include "string"
 #include "vector"
 #include "Windows.h"
-#include "conio.h"
+
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -37,12 +37,19 @@ int Change_CL(int &C){
 	if(C>15) C=0;
 }
 
-void Show_Display(const vector<string> Logo,int &C,int &Stage){
-	for(int i=0 ; i<Logo.size() ; i++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-		cout << "\t" << Logo[i] << endl;
+void print(vector<string> P,int C_P=15,int t=0,int D=0){
+	for(int i =0 ; i<P.size() ; i++){
+		// -69 is Chang color follow i (size vector);
+		if(C_P == -69) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+		else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),C_P);
+		delay(D);
+		for(int j=0;j<t;j++) cout << "\t";
+		cout <<  P[i] << endl;
 	}
-	
+}
+
+void Show_Display(const vector<string> Logo,int &C,int &Stage){
+		print(Logo,-69,1);
 	if(Stage != -1){
 		int B1=7,B2=7,B3=7, B4=7;
 		if(Stage == 0){
@@ -94,17 +101,9 @@ int main(){
 	fin.close();
 	
 	// --- Show Logo to start game ---
-	for(int i=0 ; i<Logo.size() ; i++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-		cout << "\t" << Logo[i] << endl;
-		delay(10);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
-	}
+	print(Logo,-69,1,7);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 	system("CLS");
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-	//cout << "\t\t\t\t\t" << "     CREDIT    " << endl << endl;
-
-	
 	
 	// --- Choose Menu do something ---
 	int U=0,C=0;

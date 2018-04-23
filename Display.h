@@ -3,12 +3,29 @@
 #include "string"
 #include "vector"
 #include "Windows.h"
-#include "conio.h"
+
 
 #define KEY_UP 72
 #define KEY_DOWN 80
 
 using namespace std;
+
+// ---set windows ---//
+void SetWindow(int Width, int Height){
+    _COORD coord;
+    coord.X = Width;
+    coord.Y = Height;
+
+    _SMALL_RECT Rect;
+    Rect.Top = 0;
+    Rect.Left = 0;
+    Rect.Bottom = Height - 1;
+    Rect.Right = Width - 1;
+
+    HANDLE Handle = GetStdHandle(STD_OUTPUT_HANDLE);      // Get Handle
+    SetConsoleScreenBufferSize(Handle, coord);            // Set Buffer Size
+    SetConsoleWindowInfo(Handle, TRUE, &Rect);            // Set Window Size
+}
 
 // --- This function for Delay Display --- 
 void delay(int N=1){
@@ -20,20 +37,21 @@ int Change_CL(int &C){
 	if(C>15) C=0;
 }
 
-void Show_Display(const vector<string> Logo,int &C,int &Stage){
-	for(int i=0 ; i<Logo.size() ; i++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-		cout << "\t" << Logo[i] << endl;
+void print(vector<string> P,int C_P=15,int t=0,int D=0){
+	for(int i =0 ; i<P.size() ; i++){
+		// -69 is Chang color follow i (size vector);
+		if(C_P == -69) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
+		else SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),C_P);
+		delay(D);
+		for(int j=0;j<t;j++) cout << "\t";
+		cout <<  P[i] << endl;
 	}
-	
+}
+
+void Show_Display(const vector<string> Logo,int &C,int &Stage){
+		print(Logo,-69,1);
 	if(Stage != -1){
 		int B1=7,B2=7,B3=7, B4=7;
-		
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-		cout << endl <<  endl 
-			 << "\t\t\t\t\t" << "         ^         " << endl
-			 << "\t\t\t\t\t" << "         |         " << endl << endl<< endl;
-		
 		if(Stage == 0){
 			B1 = C;
 		}
@@ -54,13 +72,7 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 			B1=B2=B3=7,B4=C;
 		}
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),B4);
-		cout << "\t\t\t\t\t" << "        EXIT       " << endl << endl;
-		
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-		cout << endl 
-			 << "\t\t\t\t\t" << "         |         " << endl
-			 <<	"\t\t\t\t\t" << "         v         " << endl;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);				
+		cout << "\t\t\t\t\t" << "        EXIT       " << endl << endl;				
 	}		
 
 
@@ -71,34 +83,32 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 
 int Display(){
 	
+	//setwindow output
+	SetWindow(100,44);
+	
 	// --- Decare variable for read file ---
 	ifstream fin;
 	fin.open("DIEorOUT.txt");
 	string text;
 	vector<string> Logo;
 	
+	// --- Decare variable for get key on keyborad ---
+	char key;
+	int ascii_key;
+	
 	// --- Read text from DIEorOUT.txt  & Input text to vector_Logo ---
 	while(getline(fin,text)) Logo.push_back(text);
 	fin.close();
 	
 	// --- Show Logo to start game ---
-	for(int i=0 ; i<Logo.size() ; i++){
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
-		cout << "\t" << Logo[i] << endl;
-		delay(10);
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
-	}
+	print(Logo,-69,1,7);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 	system("CLS");
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),10);
-	//cout << "\t\t\t\t\t" << "     CREDIT    " << endl << endl;
-
-	
 	
 	// --- Choose Menu do something ---
 	int U=0,C=0;
-	bool braek_start=true;
 	
-	while(braek_start){
+	while(U != -2){
 		Show_Display(Logo,C,U);
 		if(GetAsyncKeyState(VK_DOWN)){
 			++U;
@@ -109,8 +119,7 @@ int Display(){
 			if(U==-1) U=0; 
 		}
 		else if(GetAsyncKeyState(VK_RETURN)){
-			braek_start=false;
-			return U;
+			U = -2;
 		}
 	}
 		
