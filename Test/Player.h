@@ -23,20 +23,19 @@ class Player{
 	Equipment *equip;
 	Item *item[];
 	public:
-		Player(int, int, int, int, int);
+		Player(int, int, int, Pos);
 		void wear(Equipment *);
 		void get(Item *);
 		void useItem(int);
 		void walk(int **);
 		void beTrapped();
 };
-Player::Player(int hhp, int aatk, int ddef, int xx, int yy){
+Player::Player(int hhp, int aatk, int ddef, Pos start){
 	hpmax=hhp;
 	atk=aatk;
 	def=ddef;
 	hp=hpmax;
-	pos.x=xx;
-	pos.y=yy;
+	pos=start;
 }
 
 class Equipment{
@@ -96,7 +95,7 @@ void Player::walk(int **map){
 	map[pos.y][pos.x]=0;
 	if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
 		pos.y--;
-	}else if(GetAsyncKeyState(0x53) && map[pos.y-1][pos.x]!=1){
+	}else if(GetAsyncKeyState(0x53) && map[pos.y+1][pos.x]!=1){
 		pos.y++;
 	}else if(GetAsyncKeyState(0x41) && map[pos.y][pos.x-1]!=1){
 		pos.x--;

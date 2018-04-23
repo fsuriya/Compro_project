@@ -6,16 +6,21 @@
 #include <ctime>
 #include <vector>
 using namespace std;
-#include "Monster.h"
+//#include "Monster.h"
 #include "Player.h"
 //#include "Item.h"
 
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+COORD cursorPos;
+
+void gotoLine(int, int);
+void hideCursor(bool, DWORD);
 
 int main(){
 	srand(time(0));
 	//fixed row-col
 	int length_x, length_y;
-	cout<<"Scale (x, y): ";cin>>length_x>>length_y;
+	cout<<"Set Scale **Odd number** (x, y): ";cin>>length_x>>length_y;
 	
 	//creat map aray
 	int **data_map=new int *[length_y];
@@ -79,10 +84,49 @@ int main(){
 			break_flag=false;
 		}
 	}
-	Player player(0, 0, 0, jrand, irand);
+	Pos start, exit;
+	{
+		int poss=rand()%4;
+		if(poss==0){
+			start.y=0;
+			exit.y=length_y-1;
+			do{
+				start.x=rand()%(length_x-2)+1;
+				exit.x=rand()%(length_x-2)+1;
+			}while(data_map[start.y+1][start.x]==1 || data_map[exit.y-1][exit.x]==1);
+		}else if(poss==1){
+			start.x=length_x-1;
+			exit.x=0;
+			do{
+				start.y=rand()%(length_y-2)+1;
+				exit.y=rand()%(length_y-2)+1;
+			}while(data_map[start.y][start.x-1]==1 || data_map[exit.y][exit.x+1]==1);
+		}else if(poss==2){
+			start.y=length_y-1;
+			exit.y=0;
+			do{
+				start.x=rand()%(length_x-2)+1;
+				exit.x=rand()%(length_x-2)+1;
+			}while(data_map[start.y-1][start.x]==1 || data_map[exit.y+1][exit.x]==1);
+		}else{
+			start.x=0;
+			exit.x=length_x-1;
+			do{
+				start.y=rand()%(length_y-2)+1;
+				exit.y=rand()%(length_y-2)+1;
+			}while(data_map[start.y][start.x+1]==1 || data_map[exit.y][exit.x-1]==1);
+		}
+		data_map[start.y][start.x]=0;
+		data_map[exit.y][exit.x]=0;
+	}
 	
-	while(1){
-		system("CLS");
+	Player player(0, 0, 0, start);
+	system("CLS");
+	hideCursor(0,0);
+	bool kk=1;
+	while(kk){
+		if(GetAsyncKeyState(VK_ESCAPE)) kk=0;
+		gotoLine(0,0);
 		player.walk(data_map);
 		for(int i=0;i<length_y;i++){
 			for(int j=0;j<length_x;j++){
@@ -103,6 +147,19 @@ int main(){
 	
 	for(int i=0;i<length_y;i++) delete [] data_map[i];
 	delete [] data_map;
-	
+	hideCursor(1,10);
 	return 0;
+}
+
+void gotoLine(int xx, int yy){
+	cursorPos.X=xx;
+	cursorPos.Y=yy;
+	SetConsoleCursorPosition(console,cursorPos); 
+}
+void hideCursor(bool on, DWORD size){
+	if(size == 0) size = 20;
+	CONSOLE_CURSOR_INFO lpCursor;	
+	lpCursor.bVisible = on;
+	lpCursor.dwSize = size;
+	SetConsoleCursorInfo(console,&lpCursor);
 }
