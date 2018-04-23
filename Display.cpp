@@ -42,7 +42,6 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 	for(int i=0;i<Logo.size();i++){
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
 		cout << "\t" << Logo[i] << endl;
-		delay(7);
 	}
 
 	if(Stage != -1){
@@ -76,7 +75,7 @@ void Show_Display(const vector<string> Logo,int &C,int &Stage){
 	Change_CL(C);	
 }
 
-int Display(){
+int main(){
 	
 	//setwindow output
 	SetWindow(100,44);
@@ -87,10 +86,6 @@ int Display(){
 	string text;
 	vector<string> Logo;
 	
-	// --- Decare variable for get key on keyborad ---
-	char key;
-	int ascii_key;
-	
 	// --- Read text from DIEorOUT.txt  & Input text to vector_Logo ---
 	while(getline(fin,text)) Logo.push_back(text);
 	fin.close();
@@ -100,6 +95,7 @@ int Display(){
 	for(int i=0;i<Logo.size();i++){
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),i);
 		cout << "\t" << Logo[i] << endl;
+		delay(7);
 	}
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 	system("CLS");
