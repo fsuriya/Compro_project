@@ -91,9 +91,11 @@ void Player::get(Item *obj){
 }*/
 
 void Player::walk(int trap,int **map){
-	trap = 0;
 	map[pos.y][pos.x]=0;
-	if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
+	if(trap==1){
+		
+	}else{
+		if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
 		pos.y--;
 	}else if(GetAsyncKeyState(0x53) && map[pos.y-1][pos.x]!=1){
 		pos.y++;
@@ -101,6 +103,7 @@ void Player::walk(int trap,int **map){
 		pos.x--;
 	}else if(GetAsyncKeyState(0x44) && map[pos.y][pos.x+1]!=1){
 		pos.x++;
+	}
 	}
 	map[pos.y][pos.x]=4;
 /*	if(map[y][x]==2) get()
@@ -114,7 +117,7 @@ void Player::beTrapped(){
 		hp-=rand()%11+10;
 	}else if(i<6){
 		for(int i=0;i<2;i++){
-		
+			walk(1,0);
 		}
 	}else if(i<8){
 		//show fight();
