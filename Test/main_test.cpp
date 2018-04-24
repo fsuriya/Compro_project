@@ -20,15 +20,15 @@ bool operator!=(const Pos &a, const Pos &b){
 	if(a.x==b.x && a.y==b.y) return false;
 	return true;
 }
-#include "Monster.h"
-#include "Player.h"
-//#include "Item.h"
-
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD cursorPos;
 
 void gotoLine(int, int);
 void hideCursor(bool, DWORD);
+
+#include "Monster.h"
+#include "Player.h"
+//#include "Item.h"
 
 int main(){
 	srand(time(0));
@@ -46,9 +46,8 @@ int main(){
 	}
 
 	//rand start delete
-	int ToRandXY=length_x/2-1;
-	int oi=rand()%ToRandXY*2+1;
-	int oj=rand()%ToRandXY*2+1;
+	int oi=rand()%(length_y/2-1)*2+1;
+	int oj=rand()%(length_x/2-1)*2+1;
 	int irand=oi;
 	int jrand=oj;
 	
@@ -84,6 +83,7 @@ int main(){
 			++count_map;
 		}else if(data_map[cpyirand][cpyjrand-2>0?cpyjrand-2:cpyjrand]==0&&data_map[cpyirand-2>0?cpyirand-2:cpyirand][cpyjrand]==0
 		&&data_map[cpyirand][cpyjrand+2<length_x-1?cpyjrand+2:cpyjrand]==0&&data_map[cpyirand+2<length_y-1?cpyirand+2:cpyirand][cpyjrand]==0){
+		//	if(irand<length_y && irand>0 && jrand<length_x && jrand>0) data_map[(irand+cpyirand)/2][(jrand+cpyjrand)/2]=0;
 			posX.pop_back();
 			posY.pop_back();
 			--count_map;
@@ -138,12 +138,7 @@ int main(){
 	system("CLS");
 	hideCursor(0,0);
 	bool kk=1;
-	while(kk){
-		if(GetAsyncKeyState(VK_ESCAPE)) kk=0;
-		gotoLine(0,0);
-		player.walk(data_map);
-		aa.findPlayer(data_map,player);
-		for(int i=0;i<length_y;i++){
+	for(int i=0;i<length_y;i++){
 			for(int j=0;j<length_x;j++){
 				if(data_map[i][j]==0||data_map[i][j]==2){
 					cout<<"  ";//empty,trap
@@ -162,6 +157,12 @@ int main(){
 				}
 			}cout<<endl;
 		}
+	while(kk){
+		if(GetAsyncKeyState(VK_ESCAPE)) kk=0;
+//		gotoLine(0,0);
+		player.walk(data_map);
+		aa.findPlayer(data_map,player);
+		Sleep(200);
 	}
 	
 	for(int i=0;i<length_y;i++) delete [] data_map[i];

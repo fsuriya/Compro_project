@@ -32,8 +32,7 @@ void Monster::getstatus(){
 	atk=rand()%5+8;
 	def=rand()%3+4;
 	hp=hpmax;
-	//vision=rand()%4+4;
-	vision=10;
+	vision=rand()%4+4;
 }
 /*
 void Monster::findPlayer(int **map, const Player &player){

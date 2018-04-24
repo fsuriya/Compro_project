@@ -31,13 +31,12 @@ Player::Player(int hhp, int aatk, int ddef, Pos start, Pos exit){
 }
 
 void Monster::findPlayer(int **map, const Player &player){
-	if(find.size()==0){
-		if(pow(player.pos.x-pos.x,2)+pow(player.pos.y-pos.y,2)<=pow(vision,2)){
-//	if(abs(player.pos.x-pos.x)<=vision && abs(player.pos.y-pos.y)<=vision){
-	//	if(find.size()==0){
+	Pos copy=pos;
+	map[pos.y][pos.x]=0;
+	if(pow(player.pos.x-pos.x,2)+pow(player.pos.y-pos.y,2)<=pow(vision,2)){
+		if(find.size()==0){
 			find.push_back(pos);
 			Pos old,now,temp[4],miss={-1,-1};
-			map[pos.y][pos.x]=0;
 			while(1){
 				now=find.back();
 				old=(find.size()>=2?find[find.size()-2]:(Pos){-1,-1});
@@ -54,30 +53,47 @@ void Monster::findPlayer(int **map, const Player &player){
 				}else{
 					miss=now;
 					find.pop_back();
-					continue;
 				}
-				miss=(Pos){-1,-1};
 			}
-			pos=find[1];
-			find.erase(find.begin());
-			map[pos.y][pos.x]=5;
+		}else{
+			Pos now=find.back();
+			
+			if(map[find[find.size()-2].y][find[find.size()-2].x]==4) find.pop_back();
+			else if(map[now.y-1][now.x]==4){
+				now.y--;
+				find.push_back(now);
+			} 
+			else if(map[now.y][now.x+1]==4){
+				now.x++;
+				find.push_back(now);
+			}
+			else if(map[now.y+1][now.x]==4){
+				now.y++;
+				find.push_back(now);
+			}
+			else if(map[now.y][now.x-1]==4){
+				now.x--;
+				find.push_back(now);
+			}
 		}
+		pos=find[1];
+		find.erase(find.begin());
 	}else{
 		if(find.size()!=0){
-			map[pos.y][pos.x]=0;
 			pos=find[1];
 			find.erase(find.begin());
-			map[pos.y][pos.x]=5;
-	//		if(pos==find.back()) find.clear();
-		}
-		map[pos.y][pos.x]=0;
+			if(pos==find.back()) find.clear();
+		}else{
 			int poss=rand()%4;
 			if(poss==0 && map[pos.y-1][pos.x]!=1 && map[pos.y-1][pos.x]<8) pos.y--;
 			else if(poss==1 && map[pos.y][pos.x+1]!=1 && map[pos.y][pos.x+1]<8) pos.x++;
 			else if(poss==2 && map[pos.y+1][pos.x]!=1 && map[pos.y+1][pos.x]<8) pos.y++;
-			else if(map[pos.y][pos.x-1]!=1 && map[pos.y][pos.x-1]<8) pos.x--;
-		map[pos.y][pos.x]=5;
+			else if(map[pos.y][pos.x-1]!=1 && map[pos.y][pos.x-1]<8) pos.x--;	
+		}
 	}
+	map[pos.y][pos.x]=5;
+	gotoLine(copy.x*2,copy.y); cout<<"  ";
+	gotoLine(pos.x*2,pos.y); cout<<"& ";
 }
 
 class Equipment{
@@ -134,6 +150,7 @@ void Player::beTrapped(){
 	}	
 }
 void Player::walk(int **map){
+	Pos copy=pos;
 	map[pos.y][pos.x]=(pos==first?8:pos==end?9:0);
 	if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
 		pos.y--;
@@ -145,6 +162,9 @@ void Player::walk(int **map){
 		pos.x++;
 	}
 	map[pos.y][pos.x]=4;
+	gotoLine(copy.x*2,copy.y); cout<<"  ";
+	gotoLine(pos.x*2,pos.y); cout<<"* ";
+
 /*	if(map[y][x]==2) get()
 	else if(map[y][x]==3) beTrapped();*/
 }
