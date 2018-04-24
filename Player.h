@@ -105,7 +105,7 @@ void Player::beTrapped(){
 	srand(time(0));
 	const int i=rand()%11;
 	if(i<3){
-		hp-=hpmax*(rand()%6+5)/100;
+		hp-=rand()%11+10;
 	}else if(i<6){
 		for(int i=0;i<2;i++){
 			walk(0);
@@ -113,7 +113,7 @@ void Player::beTrapped(){
 	}else if(i<8){
 		//show fight();
 	}else{
-		def-=def*(rand()%5+5)*100;
+		def-=rand()%11+10;
 	}	
 }
 
