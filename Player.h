@@ -107,7 +107,9 @@ void Player::beTrapped(){
 	if(i<3){
 		hp-=hpmax*(rand()%6+5)/100;
 	}else if(i<6){
-		for(int i=0;i<1e7;i++);
+		for(int i=0;i<2;i++){
+			walk(0);
+		}
 	}else if(i<8){
 		//show fight();
 	}else{
