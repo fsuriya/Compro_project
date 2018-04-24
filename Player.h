@@ -6,6 +6,7 @@
 #include"Windows.h"
 
 
+
 using namespace std;
 
 class Equipment;
@@ -31,8 +32,12 @@ class Player{
 		void wear(Equipment *);
 		void get(Item *);
 		void useItem(int);
-		void walk(int **);
+		void walk(int,int **);
 		void beTrapped();
+		int attack(Player &);
+		int beAttacked(int);
+		bool isDead();
+		void showStatus();
 };
 Player::Player(int hhp, int aatk, int ddef, int xx, int yy){
 	hpmax=hhp;
@@ -85,7 +90,8 @@ void Player::get(Item *obj){
 	return hp-temp;	
 }*/
 
-void Player::walk(int **map){
+void Player::walk(int trap,int **map){
+	trap = 0;
 	map[pos.y][pos.x]=0;
 	if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
 		pos.y--;
@@ -108,7 +114,7 @@ void Player::beTrapped(){
 		hp-=rand()%11+10;
 	}else if(i<6){
 		for(int i=0;i<2;i++){
-			walk(0);
+		
 		}
 	}else if(i<8){
 		//show fight();
@@ -117,7 +123,30 @@ void Player::beTrapped(){
 	}	
 }
 
+int Player::attack(Player &u){
+	return u.beAttacked(atk);
+}
 
+int Player::beAttacked(int oppatk){
+	int dmg;
+	if(oppatk > def){
+		dmg = oppatk-def;	
+	}	
+	hp -= dmg;
+	if(hp <= 0){hp = 0;}
+	
+	return dmg;	
+}
+
+bool Player::isDead(){
+	if(hp <= 0) return true;
+	else return false;
+}
+
+void Player::showStatus(){
+	cout << name << "\n";
+	cout << "HP: " << hp << "/" << hpmax << "\tATK: "<< atk << "\t\tDEF: "<< def;
+}
 
 
 
