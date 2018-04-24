@@ -19,7 +19,7 @@ int main(){
 	cout << "\n";
 	SetConsoleTextAttribute(hConsole,10);
 	cout << setw(40) << "-----------------------------------\n";
-	cout << "\n\n";
+	Player showStatus();
 	cout << setw(40) << "-----------------------------------\n";
 	SetConsoleTextAttribute(hConsole,15);
 	
