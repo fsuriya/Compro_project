@@ -31,35 +31,45 @@ Player::Player(int hhp, int aatk, int ddef, Pos start, Pos exit){
 }
 
 void Monster::findPlayer(int **map, const Player &player){
-	if(pow(player.pos.x-pos.x,2)+pow(player.pos.y-pos.y,2)<=pow(vision,2)){
-		if(find.size()==0) find.push_back(pos);
-		Pos old,now,temp[4],miss={-1,-1};
-		map[pos.y][pos.x]=0;
-		while(1){
-			now=find.back();
-			old=(find.size()>=2?find[find.size()-2]:(Pos){-1,-1});
-			if(map[now.y][now.x]==4) break;
-			temp[0]=(Pos){now.x,now.y-1}; temp[1]=(Pos){now.x+1,now.y}; temp[2]=(Pos){now.x,now.y+1}; temp[3]=(Pos){now.x-1,now.y-1};
-			if(map[pos.y][pos.x-1]!=1 && map[pos.y][pos.x-1]<8 && temp[0]!=miss && temp[1]!=miss && temp[2]!=miss && temp[3]!=miss && temp[3]!=old){
-				find.push_back(temp[3]);
-			}else if(map[pos.y+1][pos.x]!=1 && map[pos.y+1][pos.x]<8 && temp[0]!=miss && temp[1]!=miss && temp[2]!=miss && temp[2]!=old){
-				find.push_back(temp[2]);
-			}else if(map[pos.y][pos.x+1]!=1 && map[pos.y][pos.x+1]<8 && temp[0]!=miss && temp[1]!=miss && temp[1]!=old){
-				find.push_back(temp[1]);
-			}else if(map[pos.y-1][pos.x]!=1 && map[pos.y-1][pos.x]<8 && temp[0]!=miss && temp[0]!=old){
-				find.push_back(temp[0]);
-			}else{
-				miss=now;
-				find.pop_back();
-				continue;
+	if(find.size()==0){
+		if(pow(player.pos.x-pos.x,2)+pow(player.pos.y-pos.y,2)<=pow(vision,2)){
+//	if(abs(player.pos.x-pos.x)<=vision && abs(player.pos.y-pos.y)<=vision){
+	//	if(find.size()==0){
+			find.push_back(pos);
+			Pos old,now,temp[4],miss={-1,-1};
+			map[pos.y][pos.x]=0;
+			while(1){
+				now=find.back();
+				old=(find.size()>=2?find[find.size()-2]:(Pos){-1,-1});
+				if(map[now.y][now.x]==4) break;
+				temp[0]=(Pos){now.x,now.y-1}; temp[1]=(Pos){now.x+1,now.y}; temp[2]=(Pos){now.x,now.y+1}; temp[3]=(Pos){now.x-1,now.y};
+				if(map[temp[3].y][temp[3].x]!=1 && map[temp[3].y][temp[3].x]<8 && temp[0]!=miss && temp[1]!=miss && temp[2]!=miss && temp[3]!=miss && temp[3]!=old){
+					find.push_back(temp[3]);
+				}else if(map[temp[2].y][temp[2].x]!=1 && map[temp[2].y][temp[2].x]<8 && temp[0]!=miss && temp[1]!=miss && temp[2]!=miss && temp[2]!=old){
+					find.push_back(temp[2]);
+				}else if(map[temp[1].y][temp[1].x]!=1 && map[temp[1].y][temp[1].x]<8 && temp[0]!=miss && temp[1]!=miss && temp[1]!=old){
+					find.push_back(temp[1]);
+				}else if(map[temp[0].y][temp[0].x]!=1 && map[temp[0].y][temp[0].x]<8 && temp[0]!=miss && temp[0]!=old){
+					find.push_back(temp[0]);
+				}else{
+					miss=now;
+					find.pop_back();
+					continue;
+				}
+				miss=(Pos){-1,-1};
 			}
-			miss=(Pos){-1,-1};
+			pos=find[1];
+			find.erase(find.begin());
+			map[pos.y][pos.x]=5;
 		}
-		pos=find[1];
-		find.erase(find.begin());
-		map[pos.y][pos.x]=5;
 	}else{
-		if(find.size()!=0) find.clear();
+		if(find.size()!=0){
+			map[pos.y][pos.x]=0;
+			pos=find[1];
+			find.erase(find.begin());
+			map[pos.y][pos.x]=5;
+	//		if(pos==find.back()) find.clear();
+		}
 		map[pos.y][pos.x]=0;
 			int poss=rand()%4;
 			if(poss==0 && map[pos.y-1][pos.x]!=1 && map[pos.y-1][pos.x]<8) pos.y--;
