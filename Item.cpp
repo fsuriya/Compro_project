@@ -99,26 +99,6 @@ int Unit::heal(string m){
 	return hp-temp;
 	
 }
-	
-void Trap(Unit &player){
-	srand(time(0));
-	int i=rand()%11;
-	
-	switch (i){
-		case i<3 :
-			// -HP ==> 5-10%
-			break;
-		case i<6 :
-			// Stop moving ==> 2-3 s.
-			break;
-		case i<8 :
-			// Fight Monster
-			break;
-		case i<=10:
-			// -Def ==> 6-10%
-	}
-	
-}
 
 
 int main(){
@@ -132,7 +112,6 @@ int main(){
 	Equipment leather_armo(10,0,10);
 	Equipment Iron_armo(20,0,20);
 	
-	Trap();
 	
 	return 0;
 }
