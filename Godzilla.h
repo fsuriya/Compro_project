@@ -5,8 +5,8 @@
 using namespace std;
 
 
-void godzilla(){
-	int t=50;
+void godzilla(int t){
+	
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    " << setw(t) << "       ";
