@@ -4,8 +4,8 @@
 using namespace std;
 
 
-int main(){
-	int t=40;
+void knight(int t){
+	
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	cout << "      " << setw(t) << "         ";
 	SetConsoleTextAttribute(hConsole,85);
@@ -96,5 +96,4 @@ int main(){
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
 	
-	return 0;
 }
