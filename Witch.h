@@ -4,8 +4,8 @@
 using namespace std;
 
 
-void witch(){
-	int t=50;
+void witch(int t){
+
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "       " << setw(t) << "        ";
@@ -139,5 +139,5 @@ void witch(){
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << " \n";
-	
+		
 }
