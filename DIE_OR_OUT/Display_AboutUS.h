@@ -28,26 +28,63 @@ void cout_ABU(){
 	cout<<"\n\n";
 }
 
-void show_us(){
+void show_us(int page_us){
+	//claer before data
+	for(int c_page=10;c_page<40;c_page++){
+		clearline(c_page);
+	}
 	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if(page_us==0){
+		gotoxy(30,10);
+		cout<<"Sirin0786";
+		gotoxy(0,18);	
+		Witch(110);
+	}else if(page_us==1){
+		gotoxy(30,10);
+		cout<<"pannawit2541";
+		gotoxy(0,18);	
+		character_player(110);
+	}else if(page_us==2){
+		gotoxy(30,10);
+		cout<<"ravichahashi";
+		gotoxy(0,18);	
+		knight(110);
+	}else if(page_us==3){
+		gotoxy(30,10);
+		cout<<"fsuriya";
+		gotoxy(0,18);	
+		Godzilla(110);
+	}
+	SetConsoleTextAttribute(hConsole,15);
+	delay();
+	//system("CLS");
 }
 
 int Display_credit(){
 	
 	bool braek_cout=true;
-	while(braek_cout){
-		//cout header
-		cout_ABU();
-		
+	int page_us=0;
+	//cout header
+	cout_ABU();
+	while(braek_cout){	
 		//cout slidetoknow
-		show_us();
-		
+		//clearline(10);
+		show_us(page_us);
 		delay();
-		system("CLS");
-		if(GetAsyncKeyState(KEY_ESCAPE)){
+		if(GetAsyncKeyState(VK_LEFT)){
+			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
+			--page_us;
+			if(page_us<0) page_us=0;
+		}else if(GetAsyncKeyState(VK_RIGHT)){
+			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
+			++page_us;
+			if(page_us>3) page_us=3;
+		}else if(GetAsyncKeyState(KEY_ESCAPE)){
 			braek_cout=false;
+			PlaySound(TEXT("enter_click.wav"),NULL,SND_SYNC);
 		}
 	}
-	
+	system("CLS");
 	return -1;
 }

@@ -28,3 +28,19 @@ int Change_CL(int &C){
 	if(C>15) C=0;
 }
 
+void gotoxy(int x, int y)
+{
+  COORD coord;
+  coord.X = x;
+  coord.Y = y;
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void clearline(int line){
+	gotoxy(0,line);
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole,15);
+	for(int i=0;i<155;i++){
+		cout<<" ";	
+	}
+}

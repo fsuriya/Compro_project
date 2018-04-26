@@ -1,9 +1,10 @@
 #include <iostream>
 #include <Windows.h>
-#include <mmsystem.h>
+//#include <mmsystem.h>
 #include "Display_startgame.h"
 #include "Display_howtoplay.h"
 #include "Display_AboutUS.h"
+#include "Display_Exit.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ int main() {
 		}else if(turn==2){
 			turn=Display_credit();
 		}else if(turn==3){
-			//turn=Display_exit();
+			turn=Display_Exit();
 			if(turn==69){
 				break_flage=false;
 			}else{

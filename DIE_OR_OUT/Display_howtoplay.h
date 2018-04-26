@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Windows.h>
-//#include "command.h"
+#include "All_char.h"
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define KEY_ESCAPE 27
@@ -19,30 +19,55 @@ void cout_howtoplay(){
 	SetConsoleTextAttribute(hConsole,13);
 	cout<<"\t\t\t\t\t\t@  @ @  @ @@@@@    @   @  @   @    @    @@@@@  @@ \n";
 	SetConsoleTextAttribute(hConsole,14);
-	cout<<"\t\t\t\t\t\t@  @ @@@@  @ @     @   @@@@   @    @@@@ @   @  @@ \n";
+	cout<<"\t\t\t\t\t\t@  @ @@@@  @ @     @   @@@@   @    @@@@ @   @  @@ \n\n\n";
 	SetConsoleTextAttribute(hConsole,15);
 }
 
-void slidetoknow(){
-	
+void slidetoknow(int page_howto){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole,10);
+	if(page_howto==0){
+		cout<<"First thing you should your character and status before game is starting.";
+	}else if(page_howto==1){
+		cout<<"Secondly you are start in edge of the maze so you can win the gmae if you can go to exit door.";
+	}else if(page_howto==2){
+		cout<<"Finally if receive weapon potion and trap you get buff or debuff.";
+	}else if(page_howto==3){
+		cout<<"GG EZ ^^";
+	}
+	SetConsoleTextAttribute(hConsole,15);
 }
 
 int Display_howtoplay(){
 	
 	bool braek_cout=true;
-	while(braek_cout){
-		//cout header
-		cout_howtoplay();
-		
-		//cout slidetoknow
-		slidetoknow();
+
+	//cout header
+	cout_howtoplay();
 	
+	gotoxy(0,16);	
+	Witch(110);
+	
+	int page_howto=0;
+	while(braek_cout){
+		//cout slidetoknow
+		clearline(10);
+		gotoxy(40,10);
+		slidetoknow(page_howto);
 		delay();
-		system("CLS");
-		if(GetAsyncKeyState(KEY_ESCAPE)){
+		if(GetAsyncKeyState(VK_LEFT)){
+			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
+			--page_howto;
+			if(page_howto<0) page_howto=0;
+		}else if(GetAsyncKeyState(VK_RIGHT)){
+			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
+			++page_howto;
+			if(page_howto>3) page_howto=3;
+		}else if(GetAsyncKeyState(KEY_ESCAPE)){
 			braek_cout=false;
+			PlaySound(TEXT("enter_click.wav"),NULL,SND_SYNC);
 		}
 	}
-	
+	system("CLS");
 	return -1;
 }
