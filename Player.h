@@ -4,7 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include"Windows.h"
-
+#include <iomanip>
 
 
 using namespace std;
@@ -27,6 +27,7 @@ class Player{
 	Pos pos;
 	Equipment *equip;
 	Item *item[];
+	bool guard_on;
 	public:
 		Player(int, int, int, int, int);
 		void wear(Equipment *);
@@ -34,10 +35,12 @@ class Player{
 		void useItem(int);
 		void walk(int,int **);
 		void beTrapped();
+		void newTurn();
+		void guard();
 		int attack(Player &);
 		int beAttacked(int);
 		bool isDead();
-		void showStatus();
+		void showstatus();
 };
 Player::Player(int hhp, int aatk, int ddef, int xx, int yy){
 	hpmax=hhp;
@@ -62,7 +65,6 @@ Equipment::Equipment(int a,int b,int c){
 	def = c;
 	
 }
-	
 
 void Player::wear(Equipment *select){
 	if(equip!=0){
@@ -130,10 +132,19 @@ int Player::attack(Player &u){
 	return u.beAttacked(atk);
 }
 
+void Player::newTurn(){
+	guard_on = false;
+}
+
+void Player::guard(){
+	guard_on = true;
+}
+
 int Player::beAttacked(int oppatk){
 	int dmg;
 	if(oppatk > def){
 		dmg = oppatk-def;	
+		if(guard_on) dmg = dmg/3;
 	}	
 	hp -= dmg;
 	if(hp <= 0){hp = 0;}
@@ -146,10 +157,16 @@ bool Player::isDead(){
 	else return false;
 }
 
-void Player::showStatus(){
-	cout << name << "\n";
-	cout << "HP: " << hp << "/" << hpmax << "\tATK: "<< atk << "\t\tDEF: "<< def;
+void Player::showstatus(){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	cout << "\n\n\n";
+	SetConsoleTextAttribute(hConsole,10);
+	cout << setw(50) << "-----------------------------------\n";
+	cout << "   " << setw(70) << name << "\n\n";
+	cout << setw(20) << "HP: " << hp << "/" << hpmax << "   " << "ATK: " << atk << "   " << "DEF: "<< def;
+	cout << "\n\n";
+	cout << setw(50) << "-----------------------------------\n";
+	SetConsoleTextAttribute(hConsole,15);
 }
-
 
 

@@ -14,7 +14,9 @@ class Monster{
 		bool guard_on;
 	public:			
 		Monster(string);
+		void guard();
 		void newTurn();
+		bool isDead();
 		void showstatus(); 
 };
 
@@ -41,6 +43,15 @@ Monster::Monster(string n){
 
 void Monster::newTurn(){
 	guard_on = false;
+}
+
+void Monster::guard(){
+	guard_on = true;
+}
+
+bool Monster::isDead(){
+	if(hp <= 0) return true;
+	else return false;
 }
 
 void Monster::showstatus(){
