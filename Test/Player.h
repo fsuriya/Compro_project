@@ -12,7 +12,7 @@ class Player{
 	Equipment *equip;
 	Item *item[];
 	public:
-		Player(int,int,int,Pos,Pos);
+		Player(string,int,int,int,Pos,Pos);
 		void wear(Equipment *);
 		void get(Item *);
 		void useItem(int);
@@ -20,7 +20,8 @@ class Player{
 		void beTrapped();
 		friend void Monster::findPlayer(int **, const Player &);
 };
-Player::Player(int hhp, int aatk, int ddef, Pos start, Pos exit){
+Player::Player(string nname,int hhp, int aatk, int ddef, Pos start, Pos exit){
+	name=nname;	//f.sun
 	hpmax=hhp;
 	atk=aatk;
 	def=ddef;
