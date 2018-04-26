@@ -1,12 +1,12 @@
-#include<iostream>
+#include <iostream>
 #include <windows.h>
 #include <iomanip>
 
 using namespace std;
 
-int t=50;
+
 void godzilla(){
-	
+	int t=50;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    " << setw(t) << "       ";
