@@ -57,21 +57,22 @@ void show_us(int page_us){
 		Godzilla(110);
 	}
 	SetConsoleTextAttribute(hConsole,15);
-	delay();
-	//system("CLS");
 }
 
 int Display_credit(){
 	
 	bool braek_cout=true;
-	int page_us=0;
+	int page_us=0,cpy_page_us=1;
 	//cout header
 	cout_ABU();
 	while(braek_cout){	
 		//cout slidetoknow
 		//clearline(10);
-		show_us(page_us);
-		delay();
+		if(cpy_page_us!=page_us){
+			show_us(page_us);
+			cpy_page_us=page_us;
+		}
+		
 		if(GetAsyncKeyState(VK_LEFT)){
 			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
 			--page_us;

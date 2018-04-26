@@ -57,9 +57,11 @@ int Display_Exit(){
 	bool flage_exit=true;
 	cout_logoask();
 	
+	gotoxy(0,16);
+	Godzilla(110);
+	
 	while(flage_exit){
 		gotoxy(0,9);
-		
 		cout_asktoout(pos_exitmenu, C);
 		if(GetAsyncKeyState(VK_UP)){
 			pos_exitmenu=0;

@@ -48,13 +48,16 @@ int Display_howtoplay(){
 	gotoxy(0,16);	
 	Witch(110);
 	
-	int page_howto=0;
+	int page_howto=0,cpy_page_howto=1;
 	while(braek_cout){
 		//cout slidetoknow
-		clearline(10);
-		gotoxy(40,10);
-		slidetoknow(page_howto);
-		delay();
+		if(cpy_page_howto!=page_howto){
+			clearline(10);
+			gotoxy(40,10);
+			slidetoknow(page_howto);
+			cpy_page_howto=page_howto;
+		}
+		
 		if(GetAsyncKeyState(VK_LEFT)){
 			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
 			--page_howto;
