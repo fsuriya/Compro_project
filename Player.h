@@ -93,7 +93,7 @@ void Player::get(Item *obj){
 void Player::walk(int trap,int **map){
 	map[pos.y][pos.x]=0;
 	if(trap==1){
-		
+		//sleep(1000);
 	}else{
 		if(GetAsyncKeyState(0x57) && map[pos.y-1][pos.x]!=1){
 		pos.y--;
