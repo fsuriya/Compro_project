@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cmath>
 #include <vector>
+#include "select_status.h"	//f.sun
 using namespace std;
 
 struct Pos{
@@ -32,6 +33,11 @@ void hideCursor(bool, DWORD);
 
 int main(){
 	srand(time(0));
+	//f.sun
+	string name_player;
+	vector<int> data_player=select_status(name_player);
+	Player(name_player,data_player[0], data_player[1], data_player[2], 0, 0);
+	
 	//fixed row-col
 	int length_x, length_y;
 	cout<<"Set Scale **Odd number** (x, y): ";cin>>length_x>>length_y;
