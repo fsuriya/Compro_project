@@ -3,29 +3,23 @@
 #include <iomanip>
 using namespace std;
 
+
 int main(){
-	
+	int t=40;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	cout << "         ";
+	cout << "      " << setw(t) << "         ";
 	SetConsoleTextAttribute(hConsole,85);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,85);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "     ";
-	SetConsoleTextAttribute(hConsole,119);
-	cout << "-------";
-	SetConsoleTextAttribute(hConsole,85);
-	cout <<"---";
-	SetConsoleTextAttribute(hConsole,0);
-	cout << "  \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,119);
@@ -36,7 +30,7 @@ int main(){
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,136);
@@ -49,7 +43,7 @@ int main(){
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,119);
@@ -66,19 +60,19 @@ int main(){
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "------";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "     ";
+	cout << "  " << setw(t) << "     ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "-------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,119);
@@ -87,12 +81,12 @@ int main(){
 	cout << "---";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);

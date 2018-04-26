@@ -3,29 +3,23 @@
 #include <iomanip>
 using namespace std;
 
-void knight(){
-	
+
+int main(){
+	int t=40;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	cout << "         ";
+	cout << "      " << setw(t) << "         ";
 	SetConsoleTextAttribute(hConsole,85);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,85);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "     ";
-	SetConsoleTextAttribute(hConsole,119);
-	cout << "-------";
-	SetConsoleTextAttribute(hConsole,85);
-	cout <<"---";
-	SetConsoleTextAttribute(hConsole,0);
-	cout << "  \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,119);
@@ -36,7 +30,7 @@ void knight(){
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "  \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "-----";
 	SetConsoleTextAttribute(hConsole,136);
@@ -49,7 +43,7 @@ void knight(){
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "   \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "-";
 	SetConsoleTextAttribute(hConsole,119);
@@ -66,19 +60,19 @@ void knight(){
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "   ";
+	cout << setw(t) << "   ";
 	SetConsoleTextAttribute(hConsole,119);
 	cout << "------";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "----";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "     ";
+	cout << "  " << setw(t) << "     ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "-------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
-	cout << "    ";
+	cout << " " << setw(t) << "    ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,119);
@@ -87,12 +81,12 @@ void knight(){
 	cout << "---";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "    \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "------";
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
-	cout << "      ";
+	cout << "   " << setw(t) << "      ";
 	SetConsoleTextAttribute(hConsole,136);
 	cout << "--";
 	SetConsoleTextAttribute(hConsole,0);
@@ -102,4 +96,5 @@ void knight(){
 	SetConsoleTextAttribute(hConsole,0);
 	cout << "     \n";
 	
+	return 0;
 }
