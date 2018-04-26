@@ -118,7 +118,7 @@ vector<int> select_status(string &name){
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),15);
 	vector<int> GG;
 	GG.push_back(MAX_HP);
-	GG.push_back(DEF);
 	GG.push_back(ATK);
+	GG.push_back(DEF);
 	return GG;
 }
