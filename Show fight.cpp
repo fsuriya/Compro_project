@@ -1,7 +1,11 @@
 #include<iostream>
+#include "ctime"
+#include "cstdlib"
 #include"Player.h"
 #include"Unitfight.h"
 #include"Witch.h"
+#include"Knight.h"
+#include"Godzilla.h"
 #include<iomanip>
 
 int main(){
@@ -49,17 +53,23 @@ int main(){
 		turn_count++;
 	}*/
 	
-	
-	Monster mons("Witch");
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole,12);
-	cout << "\n";
-	cout << setw(100) << "-----------------------------------\n\n";
-	mons.showstatus();
-	cout << "\n\n";
-	cout << setw(100) << "-----------------------------------\n";
-	cout << "\n\n";
-	witch(50);
+	srand(time(0));
+	int i = rand()%3;
+	if(i==0){
+		Monster mons("Knight");
+		mons.showstatus();
+		knight(50);
+	}else if(i==1){
+		Monster mons("Witch");
+		mons.showstatus();
+		witch(50);
+	}else if(i==2){
+		Monster mons("Godzilla");
+		mons.showstatus();
+		godzilla(50);
+	}
+	
 	cout << "\n\n\n";
 	SetConsoleTextAttribute(hConsole,10);
 	cout << setw(40) << "-----------------------------------\n";

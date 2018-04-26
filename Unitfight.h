@@ -12,8 +12,7 @@ class Monster{
 		int atk;
 		int def;
 		bool guard_on;
-	public:
-		int pos_x,pos_y;			
+	public:			
 		Monster(string);
 		void newTurn();
 		void showstatus(); 
@@ -45,8 +44,14 @@ void Monster::newTurn(){
 }
 
 void Monster::showstatus(){
-	
-	cout << " " << setw(70) << name << "\n\n";
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole,12);
+	cout << "\n";
+	cout << setw(100) << "-----------------------------------\n\n";
+	cout << "   " << setw(70) << name << "\n\n";
 	cout << setw(70) << "HP: " << hp << "/" << hpmax << "   " << "ATK: " << atk << "   " << "DEF: "<< def;
+	cout << "\n\n";
+	cout << setw(100) << "-----------------------------------\n";
+	cout << "\n\n";
 }
 
