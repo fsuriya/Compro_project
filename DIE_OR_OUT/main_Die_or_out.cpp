@@ -2,6 +2,7 @@
 #include <Windows.h>
 //#include <mmsystem.h>
 #include "Display_startgame.h"
+#include "Display_gameplay.h"
 #include "Display_howtoplay.h"
 #include "Display_AboutUS.h"
 #include "Display_Exit.h"
@@ -19,7 +20,12 @@ int main() {
 		if(turn==-1){
 			turn=Display_startgame();
 		}else if(turn==0){
-			//turn=Display_gameplay();
+			turn=Display_gameplay();
+			if(turn==11){
+				
+			}else if(turn==22){
+				
+			}
 		}else if(turn==1){
 			turn=Display_howtoplay();
 		}else if(turn==2){

@@ -27,13 +27,23 @@ void slidetoknow(int page_howto){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole,10);
 	if(page_howto==0){
-		cout<<"First thing you should your character and status before game is starting.";
+		cout<<"First,you can input the name of your character and select your character status before game is starting.";
 	}else if(page_howto==1){
-		cout<<"Secondly you are start in edge of the maze so you can win the gmae if you can go to exit door.";
+		cout<<"Secondly, you must find a way out of the maze within the time limit.";
 	}else if(page_howto==2){
-		cout<<"Finally if receive weapon potion and trap you get buff or debuff.";
+		cout<<"If you exit before time runs out.You will WIN.";
 	}else if(page_howto==3){
-		cout<<"GG EZ ^^";
+		cout<<"But if time runs out before you exit.You will LOSE.";
+	}else if(page_howto==4){
+		cout<<"And in the game,there are still obstacles.";
+	}else if(page_howto==5){
+		cout<<"If you keep the items in game.Your time will increase";
+	}else if(page_howto==6){
+		cout<<"But if you smash the monsters in game.Your time will decrease.";
+	}else if(page_howto==7){
+		cout<<"We hope that our game isn't too difficult for you.:)";
+	}else if(page_howto==8){
+		cout<<"Thank you very much,we hope you will enjoy with our game.:)";
 	}
 	SetConsoleTextAttribute(hConsole,15);
 }
@@ -65,7 +75,7 @@ int Display_howtoplay(){
 		}else if(GetAsyncKeyState(VK_RIGHT)){
 			PlaySound(TEXT("click_buttom.wav"),NULL,SND_SYNC);
 			++page_howto;
-			if(page_howto>3) page_howto=3;
+			if(page_howto>8) page_howto=8;
 		}else if(GetAsyncKeyState(KEY_ESCAPE)){
 			braek_cout=false;
 			PlaySound(TEXT("enter_click.wav"),NULL,SND_SYNC);
